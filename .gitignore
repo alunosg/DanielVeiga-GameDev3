@@ -1,0 +1,10 @@
+﻿*.slnx
+*.sln
+*.csproj
+*.vsconfig
+Daniel Veiga GameDev3/.vs
+Daniel Veiga GameDev3/.vscode
+Daniel Veiga GameDev3/Logs
+Daniel Veiga GameDev3/obj
+Daniel Veiga GameDev3/UserSettings
+Daniel Veiga GameDev3/Library
