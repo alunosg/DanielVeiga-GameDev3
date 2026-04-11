@@ -1,0 +1,62 @@
+# Exported from Fuse 1.3.0
+
+newmtl Moustache
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd bigukygufjytftriuytyioygfhyjhvghvjhg_Moustache_diffuse.png
+map_Ks bigukygufjytftriuytyioygfhyjhvghvjhg_Moustache_specular.png
+bump bigukygufjytftriuytyioygfhyjhvghvjhg_Moustache_normal.png
+map_Ns bigukygufjytftriuytyioygfhyjhvghvjhg_Moustache_gloss.png
+
+newmtl Bottom
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd bigukygufjytftriuytyioygfhyjhvghvjhg_Bottom_diffuse.png
+map_Ks bigukygufjytftriuytyioygfhyjhvghvjhg_Bottom_specular.png
+bump bigukygufjytftriuytyioygfhyjhvghvjhg_Bottom_normal.png
+map_Ns bigukygufjytftriuytyioygfhyjhvghvjhg_Bottom_gloss.png
+
+newmtl Beard
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd bigukygufjytftriuytyioygfhyjhvghvjhg_Beard_diffuse.png
+map_Ks bigukygufjytftriuytyioygfhyjhvghvjhg_Beard_specular.png
+bump bigukygufjytftriuytyioygfhyjhvghvjhg_Beard_normal.png
+map_Ns bigukygufjytftriuytyioygfhyjhvghvjhg_Beard_gloss.png
+
+newmtl Hat
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd bigukygufjytftriuytyioygfhyjhvghvjhg_Hat_diffuse.png
+map_Ks bigukygufjytftriuytyioygfhyjhvghvjhg_Hat_specular.png
+bump bigukygufjytftriuytyioygfhyjhvghvjhg_Hat_normal.png
+map_Ns bigukygufjytftriuytyioygfhyjhvghvjhg_Hat_gloss.png
+
+newmtl Body
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd bigukygufjytftriuytyioygfhyjhvghvjhg_Body_diffuse.png
+map_Ks bigukygufjytftriuytyioygfhyjhvghvjhg_Body_specular.png
+bump bigukygufjytftriuytyioygfhyjhvghvjhg_Body_normal.png
+map_Ns bigukygufjytftriuytyioygfhyjhvghvjhg_Body_gloss.png
+
