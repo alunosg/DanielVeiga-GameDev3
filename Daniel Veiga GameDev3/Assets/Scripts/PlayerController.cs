@@ -1,6 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,10 +25,40 @@ public class PlayerController : MonoBehaviour
     public Transform shootTransform;
     public GameObject shootFX;
 
+    public Image hpImage;
+    public float hp = 5;
+    private float maxHp;
+
+    public float deathDuration = 2;
+    private bool locked = false;
+
+    private void Start()
+    {
+        maxHp = hp;
+    }
+
+    public void GetHit(float damage)
+    {
+        if(hp > 0)
+        {
+            hp -= damage;
+            hpImage.fillAmount = Mathf.Max(0, hp / maxHp);
+
+            if (hp <= 0)
+            {
+                locked = true;
+                moveInput = Vector3.zero;
+                rig.linearVelocity = Vector3.zero;
+                Invoke(nameof(Reload), deathDuration);
+            }
+        }
+    }
+
+    private void Reload() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     public void Shoot(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!locked && context.started)
         {
             Instantiate(shootFX, shootTransform);
 
@@ -38,17 +69,9 @@ public class PlayerController : MonoBehaviour
             b.linearVelocity = rig.linearVelocity;
         }
     }
-
     public void Move(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
-    }
-    private void FixedUpdate()
-    {
-        Vector3 vX = moveInput.x * speed * transform.right;
-        Vector3 vY = rig.linearVelocity.y * Vector3.up;
-        Vector3 vZ = moveInput.y * speed * transform.forward;
-        rig.linearVelocity = vX + vY + vZ;
+        if (!locked) moveInput = context.ReadValue<Vector2>();
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -69,7 +92,7 @@ public class PlayerController : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!locked && context.started)
         {
             Vector3 p1 = new(col.bounds.max.x, col.bounds.max.y, col.bounds.max.z);
             Vector3 p2 = new(col.bounds.min.x, col.bounds.max.y, col.bounds.min.z);
@@ -87,4 +110,23 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (locked) return;
+
+        Vector3 vX = moveInput.x * speed * transform.right;
+        Vector3 vY = rig.linearVelocity.y * Vector3.up;
+        Vector3 vZ = moveInput.y * speed * transform.forward;
+        rig.linearVelocity = vX + vY + vZ;
+    }
+
+
+
+
+
+
+
+    //  fixed update ficava la em cima, passei para baixa nas ultimas linhas
+
 } //       fixed update linha retirada: rig.linearVelocity = new(moveInput.x * speed, rig.linearVelocity.y, moveInput.y * speed);
