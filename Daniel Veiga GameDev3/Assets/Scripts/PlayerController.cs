@@ -9,12 +9,11 @@ public class PlayerController : MonoBehaviour
     public Collider col;
     public float speed = 10;
     public float jumpforce = 10;
-    public float turningSpeedX = 2;
-    public float turningSpeedY = 2;
+    public float turningSpeedX = 1;
+    public float turningSpeedY = 1;
     public float minRotX = -30;
     public float maxRotX = 75;
     public LayerMask floorlayer;
-
     public Transform camTarget;
 
     private Vector2 moveInput;
@@ -24,6 +23,9 @@ public class PlayerController : MonoBehaviour
 
     public Transform shootTransform;
     public GameObject shootFX;
+
+    public AudioSource audioSource;
+    public AudioClip attackSFX, hitSFX, deathSFX;
 
     public Image hpImage;
     public float hp = 5;
@@ -46,10 +48,15 @@ public class PlayerController : MonoBehaviour
 
             if (hp <= 0)
             {
+                audioSource.PlayOneShot(deathSFX);
                 locked = true;
                 moveInput = Vector3.zero;
                 rig.linearVelocity = Vector3.zero;
                 Invoke(nameof(Reload), deathDuration);
+            }
+            else
+            {
+                audioSource.PlayOneShot(hitSFX);
             }
         }
     }
@@ -60,15 +67,18 @@ public class PlayerController : MonoBehaviour
     {
         if (!locked && context.started)
         {
+            audioSource.PlayOneShot(attackSFX);
+
             Instantiate(shootFX, shootTransform);
 
-           Rigidbody b = Instantiate(bulletPrefab,
-            camTarget.position + camTarget.forward * 2,
-            camTarget.rotation).GetComponent<Bullet>().rig;
+            Rigidbody b = Instantiate(bulletPrefab,
+                camTarget.position + camTarget.forward * 1,
+                camTarget.rotation).GetComponent<Bullet>().rig;
 
             b.linearVelocity = rig.linearVelocity;
         }
     }
+
     public void Move(InputAction.CallbackContext context)
     {
         if (!locked) moveInput = context.ReadValue<Vector2>();
@@ -76,6 +86,8 @@ public class PlayerController : MonoBehaviour
 
     public void Look(InputAction.CallbackContext context)
     {
+        if (locked) return;
+
         Vector3 angles = new(0, transform.eulerAngles.y, 0);
         angles.y += context.ReadValue<Vector2>().x * turningSpeedX;
         Quaternion rot = Quaternion.Euler(angles);
@@ -90,6 +102,7 @@ public class PlayerController : MonoBehaviour
         camX = Mathf.Clamp(camX, minRotX, maxRotX);
         camTarget.localEulerAngles = new(camX, 0f, 0f);
     }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (!locked && context.started)
@@ -120,13 +133,4 @@ public class PlayerController : MonoBehaviour
         Vector3 vZ = moveInput.y * speed * transform.forward;
         rig.linearVelocity = vX + vY + vZ;
     }
-
-
-
-
-
-
-
-    //  fixed update ficava la em cima, passei para baixa nas ultimas linhas
-
-} //       fixed update linha retirada: rig.linearVelocity = new(moveInput.x * speed, rig.linearVelocity.y, moveInput.y * speed);
+}
